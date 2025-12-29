@@ -326,8 +326,50 @@ def updateItem():
 
 
 def removeItem():
+    viewInventory()
+
+    while True:
+        search = input("\nInsert the ID you want to remove (or 0 to cancel): ").strip()
+        if search == "0":
+            print("Remove cancelled")
+            return
+
+        if search.isdigit():
+            search_id = int(search)
+            found = None
+            for item, values in inventory.items():
+                if values["id"] == search_id:
+                    found = item
+                    break
+
+            if found:
+                break
+            else:
+                print("ID not found, try again.")
+        else:
+            print("Only numbers allowed for ID. Try again.")
+
+    print("\nSelected item:")
+    printHeader()
+    values = inventory[found]
+    printRow(found, values["quantity"], values["price"], values["id"], values["category"], values["brand"])
+
+    confirm = input("\nDo you want to DELETE this item? Y/N: ").strip().lower()
+    while confirm not in ("y", "n"):
+        print("Invalid option. Type Y or N.")
+        confirm = input("Do you want to DELETE this item? Y/N: ").strip().lower()
+
+    if confirm == "n":
+        print("Item was not removed.")
+        return
+
+    removed_id = inventory[found]["id"]
+    inventory.pop(found)
+    if removed_id in product_ids:
+        product_ids.remove(removed_id)
 
     print("Item removed successfully!")
+
 
 def saveAndExit():
    
