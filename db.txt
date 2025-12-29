@@ -1,0 +1,103 @@
+{
+    "inventory": {
+        "MELON": {
+            "quantity": 8,
+            "price": 4.67,
+            "id": 1,
+            "category": "food",
+            "brand": "No-Brand"
+        },
+        "COCA COLA 2L": {
+            "quantity": 12,
+            "price": 2.99,
+            "id": 2,
+            "category": "drinks",
+            "brand": "Coca-Cola"
+        },
+        "PAN BIMBO": {
+            "quantity": 6,
+            "price": 3.5,
+            "id": 3,
+            "category": "food",
+            "brand": "Kellogg's"
+        },
+        "NESCAFE CLASICO": {
+            "quantity": 4,
+            "price": 7.99,
+            "id": 4,
+            "category": "drinks",
+            "brand": "Nestl\u00c3\u00a9"
+        },
+        "HUEVOS 12PZ": {
+            "quantity": 10,
+            "price": 3.25,
+            "id": 5,
+            "category": "food",
+            "brand": "No-Brand"
+        },
+        "AGUA BONAFONT 1L": {
+            "quantity": 20,
+            "price": 0.89,
+            "id": 6,
+            "category": "drinks",
+            "brand": "Pepsi"
+        },
+        "ARROZ VERDE VALLE": {
+            "quantity": 15,
+            "price": 1.4,
+            "id": 7,
+            "category": "food",
+            "brand": "Heinz"
+        },
+        "FRIJOL NEGRO 1KG": {
+            "quantity": 9,
+            "price": 2.15,
+            "id": 8,
+            "category": "food",
+            "brand": "Quaker"
+        },
+        "FABULOSO 1L": {
+            "quantity": 5,
+            "price": 3.99,
+            "id": 9,
+            "category": "cleaning",
+            "brand": "No-Brand"
+        },
+        "DORITOS NACHO": {
+            "quantity": 7,
+            "price": 1.7,
+            "id": 10,
+            "category": "snacks",
+            "brand": "No-Brand"
+        }
+    },
+    "categories": [
+        "food",
+        "drinks",
+        "cleaning",
+        "snacks",
+        "others"
+    ],
+    "brand_info": [
+        "Coca-Cola",
+        "Kellogg's",
+        "Starbucks",
+        "Nestl\u00c3\u00a9",
+        "Pepsi",
+        "Heinz",
+        "Quaker",
+        "No-Brand"
+    ],
+    "product_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+    ]
+}

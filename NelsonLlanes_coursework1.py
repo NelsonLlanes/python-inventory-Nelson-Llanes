@@ -1,81 +1,121 @@
+
+# CourseWork
+
+import json
+import os 
+
+inventory = {}
+categories = []
+brand_info = ()
+product_ids = set()
+
+
+
+if os.path.exists("db.txt"):
+    with open("db.txt", "r") as file:
+        data = json.load(file)
+
+        inventory = data["inventory"]
+        categories = data["categories"]
+        brand_info = tuple(data["brand_info"])
+        product_ids = set(data["product_ids"])
+
+    print("Loaded inventory from db.txt")
+else:
+    print("db.txt not found. Creating new file with default values...")
+    inventory = {}
+    categories = ["food", "drinks", "cleaning", "snacks", "others"]
+    brand_info = ("Coca-Cola", "Kellogg's", "Starbucks", "Nestlé", "Pepsi", "Heinz", "Quaker","No-Brand")
+    product_ids = {1}
+
+    with open("db.txt", "w") as file:
+        json.dump({
+            "inventory": inventory,
+            "categories": categories,
+            "brand_info": list(brand_info),
+            "product_ids": list(product_ids)
+        }, file, indent=4)
+
+        print("db.txt created successfully!")
+
 # /////////////////////////////////////////////////////DATA
 
-inventory = {
-    "apple": {
-        "quantity": 10,
-        "price": 0.50,
-        "id": 1,
-        "category": "food",
-        "brand": "No-Brand"
-    },
-    "milk": {
-        "quantity": 5,
-        "price": 1.20,
-        "id": 2,
-        "category": "drinks",
-        "brand": "Nestlé"
-    },
-    "bread": {
-        "quantity": 8,
-        "price": 2.30,
-        "id": 3,
-        "category": "food",
-        "brand": "Quaker"
-    },
-    "eggs": {
-        "quantity": 12,
-        "price": 3.50,
-        "id": 4,
-        "category": "food",
-        "brand": "No-Brand"
-    },
-    "water": {
-        "quantity": 20,
-        "price": 0.90,
-        "id": 5,
-        "category": "drinks",
-        "brand": "Pepsi"
-    },
-    "cheese": {
-        "quantity": 6,
-        "price": 4.25,
-        "id": 6,
-        "category": "food",
-        "brand": "Kellogg's"
-    },
-    "banana": {
-        "quantity": 15,
-        "price": 0.35,
-        "id": 7,
-        "category": "snacks",
-        "brand": "No-Brand"
-    },
-    "coffee": {
-        "quantity": 3,
-        "price": 6.99,
-        "id": 8,
-        "category": "drinks",
-        "brand": "Starbucks"
-    },
-    "rice": {
-        "quantity": 18,
-        "price": 1.10,
-        "id": 9,
-        "category": "food",
-        "brand": "Heinz"
-    },
-    "cereal": {
-        "quantity": 7,
-        "price": 3.80,
-        "id": 10,
-        "category": "food",
-        "brand": "Coca-Cola"
-    }
-}
+# inventory = {
+#     "apple": {
+#         "quantity": 10,
+#         "price": 0.50,
+#         "id": 1,
+#         "category": "food",
+#         "brand": "No-Brand"
+#     },
+#     "milk": {
+#         "quantity": 5,
+#         "price": 1.20,
+#         "id": 2,
+#         "category": "drinks",
+#         "brand": "Nestlé"
+#     },
+#     "bread": {
+#         "quantity": 8,
+#         "price": 2.30,
+#         "id": 3,
+#         "category": "food",
+#         "brand": "Quaker"
+#     },
+#     "eggs": {
+#         "quantity": 12,
+#         "price": 3.50,
+#         "id": 4,
+#         "category": "food",
+#         "brand": "No-Brand"
+#     },
+#     "water": {
+#         "quantity": 20,
+#         "price": 0.90,
+#         "id": 5,
+#         "category": "drinks",
+#         "brand": "Pepsi"
+#     },
+#     "cheese": {
+#         "quantity": 6,
+#         "price": 4.25,
+#         "id": 6,
+#         "category": "food",
+#         "brand": "Kellogg's"
+#     },
+#     "banana": {
+#         "quantity": 15,
+#         "price": 0.35,
+#         "id": 7,
+#         "category": "snacks",
+#         "brand": "No-Brand"
+#     },
+#     "coffee": {
+#         "quantity": 3,
+#         "price": 6.99,
+#         "id": 8,
+#         "category": "drinks",
+#         "brand": "Starbucks"
+#     },
+#     "rice": {
+#         "quantity": 18,
+#         "price": 1.10,
+#         "id": 9,
+#         "category": "food",
+#         "brand": "Heinz"
+#     },
+#     "cereal": {
+#         "quantity": 7,
+#         "price": 3.80,
+#         "id": 10,
+#         "category": "food",
+#         "brand": "Coca-Cola"
+#     }
+# }
 
-categories = ["food", "drinks", "cleaning", "snacks", "others"]
-brand_info = ("Coca-Cola", "Kellogg's", "Starbucks", "Nestlé", "Pepsi", "Heinz", "Quaker","No-Brand")
-product_ids = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+# categories = ["food", "drinks", "cleaning", "snacks", "others"]
+# brand_info = ("Coca-Cola", "Kellogg's", "Starbucks", "Nestlé", "Pepsi", "Heinz", "Quaker","No-Brand")
+# product_ids = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 
 # ///////////////////////////////////////////////////////////////functions
 
@@ -320,8 +360,8 @@ def updateItem():
     # #sort inventory
     inventory
     inventory = dict(sorted(inventory.items(), key=lambda x: x[1]["id"]))
-    input("\nPress ENTER to return to the menu...")
 
+    # input("\nPress ENTER to return to the menu...")
 
 
 
@@ -370,9 +410,16 @@ def removeItem():
 
     print("Item removed successfully!")
 
-
 def saveAndExit():
-   
+    with open("db.txt", "w") as file:
+        json.dump({
+            "inventory": inventory,
+            "categories": categories,
+            "brand_info": list(brand_info),
+            "product_ids": list(product_ids)
+        }, file, indent=4)
+    
+    print("\n Data saved to db.txt successfully.")
     print("Exiting program...")
     exit()  
 
