@@ -202,9 +202,126 @@ def addItem():
     
 
 def updateItem():
+    global inventory
+    viewInventory()
+    while True:
+        search = input("\nInsert the ID you want to update (or 0 to cancel): ").strip()
+        if search == "0":
+            print("Update cancelled")
+            return
+        if search.isdigit():
+            search_id = int(search)
+            found = None
+            for item, values in inventory.items():
+                if values["id"] == search_id:
+                    found = item
+                    break
+            if found:
+                itemName = found
+                break
+            else:
+                print("ID not found, try again.")
+        else:
+            print("Only numbers allowed for ID. Try again.")
+
+    current = inventory[itemName]
+    temp = current.copy()
+    temp_item_name = itemName
+
+    print("\nSelected item:")
+    printHeader()
+    printRow(itemName, current["quantity"], current["price"], current["id"], current["category"], current["brand"])
+
+    print("\nWhat do you want to update?")
+    print("1. Item name")
+    print("2. Quantity")
+    print("3. Price")
+    print("4. Category")
+    print("5. Brand")
+    print("0. Cancel")
+
+    option = input("Select an option: ").strip()
+    if option == "0":
+        print("Update cancelled")
+        return
+
+    if option == "1":
+        while True:
+            newName = input("Insert the new item name: ").strip()
+            if not newName.replace(" ", "").isalnum():
+                print("Invalid name. Only letters, try again.")
+            elif newName in inventory and newName != itemName:
+                print("This item already exists, try another name.")
+            else:
+                break
+        temp_item_name = newName
+
+    elif option == "2":
+        while True:
+            newQty = input("Insert the new quantity: ").strip()
+            if newQty.isdigit():
+                temp["quantity"] = int(newQty)
+                break
+            print("Invalid quantity, try again.")
+
+    elif option == "3":
+        while True:
+            newPrice = input("Insert the new price: ").strip()
+            if newPrice.replace(".", "", 1).isdigit():
+                temp["price"] = float(newPrice)
+                break
+            print("Invalid price. Example: 3 or 3.50")
+
+    elif option == "4":
+        print("\nAvailable Categories:")
+        for idx, cat in enumerate(categories, start=1):
+            print(idx, cat)
+        while True:
+            catOpt = input("Select category: ").strip()
+            if catOpt.isdigit() and int(catOpt) in range(1, len(categories) + 1):
+                temp["category"] = categories[int(catOpt) - 1]
+                break
+            print("Invalid selection, try again.")
+
+    elif option == "5":
+        print("\nAvailable Brands:")
+        for idx, brand in enumerate(brand_info, start=1):
+            print(idx, brand)
+        while True:
+            brandOpt = input("Select brand: ").strip()
+            if brandOpt.isdigit() and int(brandOpt) in range(1, len(brand_info) + 1):
+                temp["brand"] = brand_info[int(brandOpt) - 1]
+                break
+            print("Invalid selection, try again.")
+
+    print("\nReview before saving:")
+    printHeader()
+    printRow(temp_item_name, temp["quantity"], temp["price"], temp["id"], temp["category"], temp["brand"])
+
+    confirm = input("\nDo you want to SAVE changes? Y/N: ").strip().lower()
+    while confirm not in ("y", "n"):
+        print("Invalid option. Type Y or N.")
+        confirm = input("Do you want to SAVE changes? Y/N: ").strip().lower()
+
+    if confirm == "n":
+        print("Changes cancelled, nothing was updated.")
+        input("\nPress ENTER to return to the menu...")
+
+        return
+
+    if temp_item_name != itemName:
+        inventory.pop(itemName)
+        inventory[temp_item_name] = temp
+    else:
+        inventory[itemName] = temp
 
     print("\n Changes saved successfully!")
     
+    # #sort inventory
+    inventory
+    inventory = dict(sorted(inventory.items(), key=lambda x: x[1]["id"]))
+    input("\nPress ENTER to return to the menu...")
+
 
 
 
